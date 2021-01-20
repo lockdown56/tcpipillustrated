@@ -20,7 +20,7 @@ fi
 
 GUESTNAME=$2
 IPADDR=$3
-MACADDR=$4
+MACADDR=$5
 
 case "$MACADDR" in
   *@*)
@@ -112,7 +112,12 @@ if [ -z "$WAIT" ]; then
 fi
 
 # Set the default container interface name to eth1 if not already set
-CONTAINER_IFNAME=${CONTAINER_IFNAME:-eth1}
+if [ ! $4 ] 
+then
+  CONTAINER_IFNAME=${CONTAINER_IFNAME:-eth1}
+else
+  CONTAINER_IFNAME=${CONTAINER_IFNAME:-$4}
+fi
 
 [ "$WAIT" ] && {
   while true; do
